@@ -1,0 +1,62 @@
+opt_in_rules:
+  - toggle_bool
+  - first_where
+  - unused_declaration
+  - convenience_type
+  - empty_string
+  - closure_end_indentation
+  - yoda_condition
+  - array_init
+  - attributes
+  - contains_over_first_not_nil
+  - identical_operands
+  - multiline_arguments
+  - multiline_parameters
+  - operator_usage_whitespace
+  - overridden_super_call
+  - prohibited_super_call
+disabled_rules:
+  - line_length
+  - private_over_fileprivate
+  - function_parameter_count
+  - file_length
+  - identifier_name
+  - function_body_length
+  - cyclomatic_complexity
+  - type_body_length
+  - large_tuple
+  - trailing_comma
+  - legacy_hashing
+  - inclusive_language
+excluded:
+  - Property24/Property24/Helpers/R.generated.swift
+  - Property24/ERA/Helpers/R.generated.swift
+  - Property24/Realty-1/Helpers/R.generated.swift
+  - Property24/Aida/Helpers/R.generated.swift
+  - Property24/Kenya/Helpers/R.generated.swift
+  - Property24/Philippines/Helpers/R.generated.swift
+custom_rules:
+  no_sleep:
+    included: ".*\\.swift"
+    name: "No Sleep Calls"
+    message: "A call to the Unix sleep(UInt) function should never be used. This \"fix\" usually points to a concurrency issue."
+    regex: sleep\(
+    severity: error
+  no_unsafe_unwraps:
+    included: ".*\\.swift"
+    name: "No Unsafely Unwrapped"
+    message: "The unsafelyUnwrapped property should never be used. As the name suggests, it is unsafe."
+    regex: "\\.unsafelyUnwrapped"
+    severity: error
+  logical_operators_position:
+    included: ".*\\.swift"
+    name: "Multiline Logical Operator Position"
+    message: "Multiline logical operators should not be at the end of the line."
+    regex: "[&||]{2}\\h*\\R"
+    severity: warning
+#  no_dispatchqueue_delay:
+#    included: ".*\\.swift"
+#    name: "No DispatchQueue.asyncAfter Calls"
+#    message: "A call to DispatchQueue's asyncAfter function should never be used. This \"fix\" usually points to a concurrency issue."
+#    regex: "asyncAfter\\("
+#    severity: warning

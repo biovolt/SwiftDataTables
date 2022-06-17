@@ -8,35 +8,34 @@
 
 import Foundation
 
-//MARK: - TODO: 11 march - TODO: See if you can make the multidimensional array a generic object so that it can accept any value type.
-//This will probably make sorting easier and could potenntially allow us to get rid of this class
+// MARK: - TODO: 11 march - TODO: See if you can make the multidimensional array a generic object so that it can accept any value type.
+
+// This will probably make sorting easier and could potenntially allow us to get rid of this class
 
 public enum DataTableValueType {
-    
-    //MARK: - Properties
+    // MARK: - Properties
+
     case string(String)
     case stringLink(String)
     case int(Int)
     case float(Float)
     case double(Double)
-    
+
     public var stringRepresentation: String {
-        get {
-            switch self {
-            case .string(let value):
-                return String(value)
-            case .stringLink(let value):
-                return String(value)
-            case .int(let value):
-                return String(value)
-            case .float(let value):
-                return String(value)
-            case .double(let value):
-                return String(value)
-            }
+        switch self {
+        case .string(let value):
+            return String(value)
+        case .stringLink(let value):
+            return String(value)
+        case .int(let value):
+            return String(value)
+        case .float(let value):
+            return String(value)
+        case .double(let value):
+            return String(value)
         }
     }
-    
+
     func hasSameCaseAs(_ type: Self) -> Bool {
         switch self {
         case .string: if case .string = type { return true }
@@ -47,9 +46,9 @@ public enum DataTableValueType {
         }
         return false
     }
-    
-    public init(_ value: Any){
-        //Determine the actual type first
+
+    public init(_ value: Any) {
+        // Determine the actual type first
         switch value {
         case let value as Int:
             self = .int(value)
@@ -61,14 +60,11 @@ public enum DataTableValueType {
             let temporaryStringRepresentation = String(describing: value)
             if let value = Int(temporaryStringRepresentation) {
                 self = .int(value)
-            }
-            else if let value = Float(temporaryStringRepresentation) {
+            } else if let value = Float(temporaryStringRepresentation) {
                 self = .float(value)
-            }
-            else if let value = Double(temporaryStringRepresentation) {
+            } else if let value = Double(temporaryStringRepresentation) {
                 self = .double(value)
-            }
-            else {
+            } else {
                 self = .string(temporaryStringRepresentation)
             }
         }
@@ -79,6 +75,7 @@ extension DataTableValueType: Comparable {
     public static func == (lhs: DataTableValueType, rhs: DataTableValueType) -> Bool {
         return lhs.stringRepresentation == rhs.stringRepresentation
     }
+
     public static func < (lhs: DataTableValueType, rhs: DataTableValueType) -> Bool {
         switch (lhs, rhs) {
         case (.string(let lhsValue), .string(let rhsValue)):

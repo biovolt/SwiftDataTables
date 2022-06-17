@@ -8,7 +8,6 @@
 
 import Foundation
 
-
 public enum DataTableSortType: String {
     case hidden
     case unspecified
@@ -29,8 +28,8 @@ extension DataTableSortType {
             self = .ascending
         }
     }
-    
-    mutating func toggleToDefault(){
+
+    mutating func toggleToDefault() {
         switch self {
         case .hidden:
             break

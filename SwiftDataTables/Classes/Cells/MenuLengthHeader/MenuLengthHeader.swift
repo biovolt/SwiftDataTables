@@ -9,24 +9,26 @@
 import UIKit
 
 class MenuLengthHeader: UICollectionReusableView {
-    
-    //MARK: - Properties
+    // MARK: - Properties
+
     let searchBar = UISearchBar()
 
-    //MARK: - Events
+    // MARK: - Events
+
     var searchTextDidChange: ((String) -> Void)?
-    
-    //MARK: - Lifecycle
-    
+
+    // MARK: - Lifecycle
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
     }
-    
+
     required init?(coder: NSCoder) {
         super.init(coder: coder)
         setup()
     }
+
     private func setup() {
         searchBar.translatesAutoresizingMaskIntoConstraints = false
         addSubview(searchBar)
@@ -34,24 +36,24 @@ class MenuLengthHeader: UICollectionReusableView {
             searchBar.topAnchor.constraint(equalTo: topAnchor),
             searchBar.leadingAnchor.constraint(equalTo: leadingAnchor),
             searchBar.bottomAnchor.constraint(equalTo: bottomAnchor),
-            searchBar.trailingAnchor.constraint(equalTo: trailingAnchor),
+            searchBar.trailingAnchor.constraint(equalTo: trailingAnchor)
         ])
     }
-    
-    func configure(_ viewModel: MenuLengthHeaderViewModel){
+
+    func configure(_ viewModel: MenuLengthHeaderViewModel) {
 //       self.searchTextField.addTarget(viewModel, action: #selector(MenuLengthHeaderViewModel.textFieldDidChange), for: .editingChanged)
-        
+
         searchTextDidChange = { searchText in
             viewModel.searchTextFieldDidChangeEvent?(searchText)
         }
         searchBar.delegate = self
         searchBar.searchBarStyle = .minimal
-        searchBar.placeholder = "Search"// - \(viewModel.count) names"
+        searchBar.placeholder = "Search" // - \(viewModel.count) names"
     }
 }
 
 extension MenuLengthHeader: UISearchBarDelegate {
-    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
-        self.searchTextDidChange?(searchText)
+    func searchBar(_: UISearchBar, textDidChange searchText: String) {
+        searchTextDidChange?(searchText)
     }
 }

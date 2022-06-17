@@ -15,10 +15,10 @@ public extension IndexPath {
         return self[0]
     }
 }
-//public extension Collection where Self.Index == Int {
-extension Collection where Indices.Iterator.Element == Index {
 
-    subscript (safe index: Index) -> Iterator.Element? {
+// public extension Collection where Self.Index == Int {
+extension Collection where Indices.Iterator.Element == Index {
+    subscript(safe index: Index) -> Iterator.Element? {
         return indices.contains(index) ? self[index] : nil
     }
 }
@@ -26,14 +26,14 @@ extension Collection where Indices.Iterator.Element == Index {
 extension UIScrollView {
     /// Sets content offset to the top.
     func resetScrollPositionToTop() {
-        self.contentOffset = CGPoint(x: -contentInset.left, y: -contentInset.top)
+        contentOffset = CGPoint(x: -contentInset.left, y: -contentInset.top)
     }
 }
 
 extension String {
-  func widthOfString(usingFont font: UIFont) -> CGFloat {
-    let fontAttributes = [NSAttributedString.Key.font: font]
-    let size = self.size(withAttributes: fontAttributes)
-    return size.width
-  }
+    func widthOfString(usingFont font: UIFont) -> CGFloat {
+        let fontAttributes = [NSAttributedString.Key.font: font]
+        let size = self.size(withAttributes: fontAttributes)
+        return size.width
+    }
 }

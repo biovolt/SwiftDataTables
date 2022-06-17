@@ -13,11 +13,12 @@ protocol VirtualPositionTrackable {
     var xPositionRunningTotal: CGFloat? { get set }
     var yPositionRunningTotal: CGFloat? { get set }
     var virtualHeight: CGFloat { get set }
-    
+
     var maxY: CGFloat { get }
 }
+
 extension VirtualPositionTrackable {
     var maxY: CGFloat {
-        return self.yPositionRunningTotal ?? 0 + self.virtualHeight
+        return yPositionRunningTotal ?? 0 + virtualHeight
     }
 }

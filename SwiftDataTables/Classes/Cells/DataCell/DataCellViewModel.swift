@@ -10,32 +10,36 @@ import Foundation
 import UIKit
 
 open class DataCellViewModel: VirtualPositionTrackable, CollectionViewCellRepresentable {
-    //MARK: - Private Properties
+    // MARK: - Private Properties
+
     private var dataTable: SwiftDataTable
 
-    //MARK: - Public Properties
-    var xPositionRunningTotal: CGFloat?  = nil
-    var yPositionRunningTotal: CGFloat?  = nil
+    // MARK: - Public Properties
+
+    var xPositionRunningTotal: CGFloat?
+    var yPositionRunningTotal: CGFloat?
     var virtualHeight: CGFloat = 0
     public let data: DataTableValueType
     var highlighted: Bool = false
     //
     public var stringRepresentation: String {
-        return self.data.stringRepresentation
+        return data.stringRepresentation
     }
-    //MARK: - Lifecycle
+
+    // MARK: - Lifecycle
+
     init(data: DataTableValueType, dataTable: SwiftDataTable) {
         self.data = data
         self.dataTable = dataTable
     }
-    
+
     static func registerCell(collectionView: UICollectionView) {
         let identifier = String(describing: DataCell.self)
         collectionView.register(DataCell.self, forCellWithReuseIdentifier: identifier)
         let nib = UINib(nibName: identifier, bundle: nil)
         collectionView.register(nib, forCellWithReuseIdentifier: identifier)
     }
-    
+
     func dequeueCell(collectionView: UICollectionView, indexPath: IndexPath) -> UICollectionViewCell {
         let identifier = String(describing: DataCell.self)
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as? DataCell else {
@@ -45,6 +49,7 @@ open class DataCellViewModel: VirtualPositionTrackable, CollectionViewCellRepres
         return cell
     }
 }
+
 extension DataCellViewModel: Equatable {
     /// Returns a Boolean value indicating whether two values are equal.
     ///
@@ -54,9 +59,8 @@ extension DataCellViewModel: Equatable {
     /// - Parameters:
     ///   - lhs: A value to compare.
     ///   - rhs: Another value to compare.
-    public static func ==(lhs: DataCellViewModel, rhs: DataCellViewModel) -> Bool {
+    public static func == (lhs: DataCellViewModel, rhs: DataCellViewModel) -> Bool {
         return lhs.data == rhs.data
-        && lhs.highlighted == rhs.highlighted
+            && lhs.highlighted == rhs.highlighted
     }
-
 }

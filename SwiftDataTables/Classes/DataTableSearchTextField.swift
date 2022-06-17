@@ -8,42 +8,40 @@
 
 import UIKit
 
-
 class DataTableSearchTextField: UITextField {
-    
-    //MARK: - Properties
+    // MARK: - Properties
 
-    //MARK: - Lifecycle
+    // MARK: - Lifecycle
+
     override func awakeFromNib() {
         super.awakeFromNib()
-        self.setup()
+        setup()
     }
-    
-    public func setup(){
-        self.borderStyle = .none
-        self.backgroundColor = UIColor.white
-        self.clearButtonMode = .always
+
+    public func setup() {
+        borderStyle = .none
+        backgroundColor = UIColor.white
+        clearButtonMode = .always
     }
-    
+
     override func layoutSubviews() {
         super.layoutSubviews()
-        self.layer.cornerRadius = (self.bounds.height / 2)-1
+        layer.cornerRadius = (bounds.height / 2) - 1
     }
-    
+
     let inset: CGFloat = 10
-    
+
     // placeholder position
     override func textRect(forBounds bounds: CGRect) -> CGRect {
-        return bounds.insetBy(dx: inset , dy: inset)
+        return bounds.insetBy(dx: inset, dy: inset)
     }
-    
+
     // text position
     override func editingRect(forBounds bounds: CGRect) -> CGRect {
-        return bounds.insetBy(dx: inset , dy: inset)
+        return bounds.insetBy(dx: inset, dy: inset)
     }
-    
+
     override func placeholderRect(forBounds bounds: CGRect) -> CGRect {
         return bounds.insetBy(dx: inset, dy: inset)
     }
-    
 }

@@ -1,0 +1,23 @@
+--allman false
+--closingparen balanced
+--commas inline
+--elseposition same-line
+--empty void
+--exponentcase lowercase
+--hexliteralcase uppercase
+--ifdef no-indent
+--importgrouping alphabetized
+--indent 4
+--indentcase false
+--linebreaks lf
+--operatorfunc spaced
+--patternlet inline
+--ranges spaced
+--self remove
+--selfrequired 
+--semicolons inline
+--stripunusedargs always
+--swiftversion 5.2
+--trimwhitespace always
+--wraparguments preserve
+--wrapcollections preserve

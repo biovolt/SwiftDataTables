@@ -9,19 +9,22 @@
 import UIKit
 
 class PaginationHeader: UICollectionReusableView {
-    //MARK: - Properties
+    // MARK: - Properties
+
     let label = UILabel()
-    
-    //MARK: - Lifecycle
+
+    // MARK: - Lifecycle
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
     }
-    
-    required init?(coder: NSCoder) {
+
+    @available(*, unavailable)
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     func setup() {
         label.translatesAutoresizingMaskIntoConstraints = false
         addSubview(label)
@@ -33,7 +36,6 @@ class PaginationHeader: UICollectionReusableView {
             label.bottomAnchor.constraint(equalTo: bottomAnchor)
         ])
     }
-    func configure(_ viewModel: PaginationHeaderViewModel){
-        
-    }
+
+    func configure(_: PaginationHeaderViewModel) {}
 }

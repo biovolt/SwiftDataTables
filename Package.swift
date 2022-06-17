@@ -3,11 +3,12 @@ import PackageDescription
 
 let package = Package(
     name: "SwiftDataTables",
-    platforms: [ .iOS(.v9) ],
+    platforms: [.iOS(.v9)],
     products: [
         .library(
             name: "SwiftDataTables",
-            targets: ["SwiftDataTables"]),
+            targets: ["SwiftDataTables"]
+        )
     ],
     dependencies: [
     ],
@@ -15,11 +16,13 @@ let package = Package(
         .target(
             name: "SwiftDataTables",
             dependencies: [],
-            path: "SwiftDataTables"),
+            path: "SwiftDataTables"
+        ),
         .testTarget(
             name: "SwiftDataTablesTests",
             dependencies: ["SwiftDataTables"],
-            path: "Example/SwiftDataTablesTests"),
+            path: "Example/SwiftDataTablesTests"
+        )
     ],
     swiftLanguageVersions: [.v5]
 )

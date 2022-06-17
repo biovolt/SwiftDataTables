@@ -9,17 +9,17 @@
 import Foundation
 import UIKit
 
-
 public class DataHeaderFooterViewModel: DataTableSortable {
-    //MARK: - Properties
+    // MARK: - Properties
+
     let data: String
     var indexPath: IndexPath! // Questionable
     var dataTable: SwiftDataTable
-    
+
     public var sortType: DataTableSortType
-    
+
     var imageStringForSortingElement: String? {
-        switch self.sortType {
+        switch sortType {
         case .hidden:
             return nil
         case .unspecified:
@@ -30,8 +30,9 @@ public class DataHeaderFooterViewModel: DataTableSortable {
             return "column-sort-descending"
         }
     }
+
     var imageForSortingElement: UIImage? {
-        guard let imageName = self.imageStringForSortingElement else {
+        guard let imageName = imageStringForSortingElement else {
             return nil
         }
         let bundle = Bundle(for: DataHeaderFooter.self)
@@ -40,46 +41,49 @@ public class DataHeaderFooterViewModel: DataTableSortable {
             let imageBundle = Bundle(url: url),
             let imagePath = imageBundle.path(forResource: imageName, ofType: "png"),
             let image = UIImage(contentsOfFile: imagePath)?.withRenderingMode(.alwaysTemplate)
-            else {
+        else {
             return nil
         }
         return image
     }
+
     var tintColorForSortingElement: UIColor? {
-        return (dataTable != nil && sortType != .unspecified) ? dataTable.options.sortArrowTintColor : UIColor.gray
+        return (sortType != .unspecified) ? dataTable.options.sortArrowTintColor : UIColor.gray
     }
-    
-    //MARK: - Events
-    
-    //MARK: - Lifecycle
+
+    // MARK: - Events
+
+    // MARK: - Lifecycle
+
     init(data: String, sortType: DataTableSortType, dataTable: SwiftDataTable) {
         self.data = data
         self.dataTable = dataTable
         self.sortType = sortType
     }
-    
-    public func configure(dataTable: SwiftDataTable, columnIndex: Int){
+
+    public func configure(dataTable: SwiftDataTable, columnIndex: Int) {
         self.dataTable = dataTable
-        self.indexPath = IndexPath(index: columnIndex)
+        indexPath = IndexPath(index: columnIndex)
     }
 }
 
-//MARK: - Header View Representable
+// MARK: - Header View Representable
+
 extension DataHeaderFooterViewModel: CollectionViewSupplementaryElementRepresentable {
     static func registerHeaderFooterViews(collectionView: UICollectionView) {
         let identifier = String(describing: DataHeaderFooter.self)
         let headerNib = UINib(nibName: identifier, bundle: nil)
         collectionView.register(headerNib, forCellWithReuseIdentifier: identifier)
     }
-    
+
     func dequeueView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, for indexPath: IndexPath) -> UICollectionReusableView {
         let identifier = String(describing: DataHeaderFooter.self)
         guard
             let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: kind, withReuseIdentifier: identifier, for: indexPath) as? DataHeaderFooter
-            else {
-                return UICollectionReusableView()
+        else {
+            return UICollectionReusableView()
         }
-        
+
         headerView.configure(viewModel: self, dataTable: dataTable)
         switch kind {
         case SwiftDataTable.SupplementaryViewType.columnHeader.rawValue:
@@ -93,9 +97,10 @@ extension DataHeaderFooterViewModel: CollectionViewSupplementaryElementRepresent
         }
         return headerView
     }
-    
-    //MARK: - Events
-    func headerViewDidTap(){
-        self.dataTable.didTapColumn(index: self.indexPath)
+
+    // MARK: - Events
+
+    func headerViewDidTap() {
+        dataTable.didTapColumn(index: indexPath)
     }
 }

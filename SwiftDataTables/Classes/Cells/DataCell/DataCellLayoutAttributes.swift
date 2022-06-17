@@ -9,16 +9,17 @@
 import UIKit
 
 open class DataCellLayoutAttributes: UICollectionViewLayoutAttributes {
+    // MARK: - Properties
 
-    //MARK: - Properties
-    var xPositionRunningTotal: CGFloat? = nil
-    var yPositionRunningTotal: CGFloat? = nil
-    
-    //MARK: - Lifecycle
+    var xPositionRunningTotal: CGFloat?
+    var yPositionRunningTotal: CGFloat?
+
+    // MARK: - Lifecycle
+
     override open func copy(with zone: NSZone?) -> Any {
         let copy = super.copy(with: zone) as! DataCellLayoutAttributes
-        copy.xPositionRunningTotal = self.xPositionRunningTotal
-        copy.yPositionRunningTotal = self.yPositionRunningTotal
+        copy.xPositionRunningTotal = xPositionRunningTotal
+        copy.yPositionRunningTotal = yPositionRunningTotal
         return copy
     }
 }

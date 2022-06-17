@@ -10,8 +10,9 @@ import Foundation
 import UIKit
 
 class MenuLengthHeaderViewModel: NSObject {
-    //MARK: - Events
-    var searchTextFieldDidChangeEvent: ((String) -> Void)? = nil
+    // MARK: - Events
+
+    var searchTextFieldDidChangeEvent: ((String) -> Void)?
 }
 
 extension MenuLengthHeaderViewModel: CollectionViewSupplementaryElementRepresentable {
@@ -20,9 +21,8 @@ extension MenuLengthHeaderViewModel: CollectionViewSupplementaryElementRepresent
         let headerNib = UINib(nibName: identifier, bundle: nil)
         collectionView.register(headerNib, forCellWithReuseIdentifier: identifier)
     }
-    
+
     func dequeueView(collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, for indexPath: IndexPath) -> UICollectionReusableView {
-        
         let identifier = String(describing: MenuLengthHeader.self)
         guard
             let headerView = collectionView.dequeueReusableSupplementaryView(
@@ -30,25 +30,23 @@ extension MenuLengthHeaderViewModel: CollectionViewSupplementaryElementRepresent
                 withReuseIdentifier:
                 identifier,
                 for: indexPath
-                ) as? MenuLengthHeader
-            else {
-                return UICollectionReusableView()
+            ) as? MenuLengthHeader
+        else {
+            return UICollectionReusableView()
         }
-        
+
         headerView.configure(self)
         return headerView
     }
 }
 
 extension MenuLengthHeaderViewModel {
-    @objc func textFieldDidChange(textField: UITextField){
+    @objc func textFieldDidChange(textField: UITextField) {
         guard let text = textField.text else {
             return
         }
-        self.searchTextFieldDidChangeEvent?(text)
+        searchTextFieldDidChangeEvent?(text)
     }
 }
 
-extension MenuLengthHeaderViewModel: UISearchBarDelegate {
-    
-}
+extension MenuLengthHeaderViewModel: UISearchBarDelegate {}

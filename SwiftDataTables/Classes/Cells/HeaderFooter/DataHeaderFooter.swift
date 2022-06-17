@@ -9,8 +9,8 @@
 import UIKit
 
 class DataHeaderFooter: UICollectionReusableView {
+    // MARK: - Properties
 
-    //MARK: - Properties
     private enum Properties {
         static let labelHorizontalMargin: CGFloat = 15
         static let labelVerticalMargin: CGFloat = 5
@@ -20,18 +20,18 @@ class DataHeaderFooter: UICollectionReusableView {
         static let imageViewWidthConstant: CGFloat = 20
         static let imageViewAspectRatio: CGFloat = 0.75
         static let labelBottomSeparator: CGFloat = 0.75
-
-        
     }
+
     let titleLabel = UILabel()
     let sortingImageView = UIImageView()
     let bottomLine = UIView()
 
+    // MARK: - Events
 
-    //MARK: - Events
-    var didTapEvent: (() -> Void)? = nil
+    var didTapEvent: (() -> Void)?
 
-    //MARK: - Lifecycle
+    // MARK: - Lifecycle
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
@@ -41,25 +41,25 @@ class DataHeaderFooter: UICollectionReusableView {
         super.init(coder: coder)
         setup()
     }
-    
+
     private func setup() {
         setupViews()
         setupConstraints()
     }
-    
+
     func setupViews() {
         titleLabel.adjustsFontSizeToFitWidth = true
         titleLabel.font = UIFont.systemFont(ofSize: UIFont.labelFontSize, weight: .heavy)
         addSubview(titleLabel)
         addSubview(sortingImageView)
-        let tapGesture = UITapGestureRecognizer.init(target: self, action: #selector(DataHeaderFooter.didTapView))
+        let tapGesture = UITapGestureRecognizer(target: self, action: #selector(DataHeaderFooter.didTapView))
         addGestureRecognizer(tapGesture)
         bottomLine.backgroundColor = UIColor.black
         bottomLine.tintColor = UIColor.black
         bottomLine.isHidden = false
         addSubview(bottomLine)
     }
-    
+
     func setupConstraints() {
         titleLabel.translatesAutoresizingMaskIntoConstraints = false
         sortingImageView.translatesAutoresizingMaskIntoConstraints = false
@@ -75,20 +75,21 @@ class DataHeaderFooter: UICollectionReusableView {
             sortingImageView.trailingAnchor.constraint(equalTo: trailingAnchor, constant: Properties.imageViewHorizontalMargin),
             sortingImageView.leadingAnchor.constraint(equalTo: titleLabel.trailingAnchor, constant: Properties.separator),
             bottomLine.heightAnchor.constraint(equalToConstant: Properties.labelBottomSeparator),
-            bottomLine.leadingAnchor.constraint(equalTo: self.leadingAnchor, constant: 0),
-            bottomLine.trailingAnchor.constraint(equalTo: self.trailingAnchor, constant: 0),
-            bottomLine.bottomAnchor.constraint(equalTo: self.bottomAnchor, constant: 0),
+            bottomLine.leadingAnchor.constraint(equalTo: leadingAnchor, constant: 0),
+            bottomLine.trailingAnchor.constraint(equalTo: trailingAnchor, constant: 0),
+            bottomLine.bottomAnchor.constraint(equalTo: bottomAnchor, constant: 0)
         ])
     }
-    
+
     func configure(viewModel: DataHeaderFooterViewModel, dataTable: SwiftDataTable) {
-        self.titleLabel.text = viewModel.data
-        self.titleLabel.font = dataTable.fontForHeaders()
-        self.sortingImageView.image = viewModel.imageForSortingElement
-        self.sortingImageView.tintColor = viewModel.tintColorForSortingElement
-        self.backgroundColor = .white
+        titleLabel.text = viewModel.data
+        titleLabel.font = dataTable.fontForHeaders()
+        sortingImageView.image = viewModel.imageForSortingElement
+        sortingImageView.tintColor = viewModel.tintColorForSortingElement
+        backgroundColor = .white
     }
-    @objc func didTapView(){
-        self.didTapEvent?()
+
+    @objc func didTapView() {
+        didTapEvent?()
     }
 }

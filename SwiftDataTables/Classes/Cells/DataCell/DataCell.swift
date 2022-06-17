@@ -9,26 +9,28 @@
 import UIKit
 
 class DataCell: UICollectionViewCell {
+    // MARK: - Properties
 
-    //MARK: - Properties
     public enum Properties {
         static let verticalMargin: CGFloat = 5
         static let horizontalMargin: CGFloat = 15
         static let widthConstant: CGFloat = 20
     }
-    
+
     let dataLabel = UILabel()
-    
-    //MARK: - Lifecycle
+
+    // MARK: - Lifecycle
+
     override init(frame: CGRect) {
         super.init(frame: frame)
         setup()
     }
-    
-    required init?(coder: NSCoder) {
+
+    @available(*, unavailable)
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
-    
+
     private func setup() {
         dataLabel.translatesAutoresizingMaskIntoConstraints = false
         contentView.addSubview(dataLabel)
@@ -37,20 +39,19 @@ class DataCell: UICollectionViewCell {
             dataLabel.topAnchor.constraint(equalTo: contentView.topAnchor, constant: Properties.verticalMargin),
             dataLabel.bottomAnchor.constraint(equalTo: contentView.bottomAnchor, constant: -Properties.verticalMargin),
             dataLabel.leadingAnchor.constraint(equalTo: contentView.leadingAnchor, constant: Properties.horizontalMargin),
-            dataLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: Properties.horizontalMargin),
+            dataLabel.trailingAnchor.constraint(equalTo: contentView.trailingAnchor, constant: Properties.horizontalMargin)
         ])
     }
-    
+
     func configure(_ viewModel: DataCellViewModel, dataTable: SwiftDataTable) {
-        self.dataLabel.text = viewModel.data.stringRepresentation
-        
+        dataLabel.text = viewModel.data.stringRepresentation
+
 //        self.contentView.backgroundColor = .white
         if viewModel.data.hasSameCaseAs(.stringLink("")) {
-            self.dataLabel.textColor =  dataTable.colorForLinkTextInRows()
+            dataLabel.textColor = dataTable.colorForLinkTextInRows()
         } else {
-            self.dataLabel.textColor = dataTable.colorForTextInRows()
+            dataLabel.textColor = dataTable.colorForTextInRows()
         }
-            self.dataLabel.font = dataTable.fontForRows()
-        
+        dataLabel.font = dataTable.fontForRows()
     }
 }

@@ -9,9 +9,7 @@
 import Foundation
 import UIKit
 
-class PaginationHeaderViewModel {
-    
-}
+class PaginationHeaderViewModel {}
 
 extension PaginationHeaderViewModel: CollectionViewSupplementaryElementRepresentable {
     static func registerHeaderFooterViews(collectionView: UICollectionView) {
@@ -28,11 +26,11 @@ extension PaginationHeaderViewModel: CollectionViewSupplementaryElementRepresent
                 withReuseIdentifier:
                 identifier,
                 for: indexPath
-                ) as? PaginationHeader
-            else {
-                return UICollectionReusableView()
+            ) as? PaginationHeader
+        else {
+            return UICollectionReusableView()
         }
-        
+
         headerView.configure(self)
         return headerView
     }

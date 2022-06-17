@@ -9,33 +9,34 @@ public enum DataTableFixedColumnSideType {
     case left
     case right
 }
+
 public class DataTableFixedColumnType: NSObject {
-    
-    //MARK: - Properties
+    // MARK: - Properties
+
     let leftColumns: Int
     let rightColumns: Int
 
-    //MARK: - Lifecycle
-    public init(leftColumns: Int, rightColumns: Int){
+    // MARK: - Lifecycle
+
+    public init(leftColumns: Int, rightColumns: Int) {
         self.leftColumns = leftColumns
         self.rightColumns = rightColumns
     }
-    
+
     public convenience init(leftColumns: Int) {
         self.init(leftColumns: leftColumns, rightColumns: 0)
     }
-    
+
     public convenience init(rightColumns: Int) {
         self.init(leftColumns: 0, rightColumns: rightColumns)
     }
 }
 
-extension DataTableFixedColumnType {
-    public func hitTest(_ columnIndex: Int, totalTableColumnCount: Int) -> DataTableFixedColumnSideType? {
+public extension DataTableFixedColumnType {
+    func hitTest(_ columnIndex: Int, totalTableColumnCount: Int) -> DataTableFixedColumnSideType? {
         if columnIndex < leftColumns {
             return .left
-        }
-        else if columnIndex >= totalTableColumnCount - rightColumns {
+        } else if columnIndex >= totalTableColumnCount - rightColumns {
             return .right
         }
         return nil

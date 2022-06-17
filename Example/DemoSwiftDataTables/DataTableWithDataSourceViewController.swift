@@ -6,26 +6,29 @@
 //  Copyright © 2017 Pavan Kataria. All rights reserved.
 //
 
-import UIKit
 import SwiftDataTables
+import UIKit
 
 class DataTableWithDataSourceViewController: UIViewController {
-    
     lazy var dataTable = makeDataTable()
     var dataSource: DataTableContent = []
     let headerTitles = ["Name", "Fav Beverage", "Fav language", "Short term goals", "Height"]
-    
+
     init() {
         super.init(nibName: nil, bundle: nil)
     }
-    required init?(coder aDecoder: NSCoder) {
+
+    @available(*, unavailable)
+    required init?(coder _: NSCoder) {
         fatalError("init(coder:) has not been implemented")
     }
+
     override func viewDidLoad() {
         super.viewDidLoad()
         setupViews()
         setupConstraints()
     }
+
     func setupViews() {
         automaticallyAdjustsScrollViewInsets = false
         navigationController?.navigationBar.isTranslucent = false
@@ -34,19 +37,18 @@ class DataTableWithDataSourceViewController: UIViewController {
         view.addSubview(dataTable)
         dataTable.reload()
     }
-    
+
     func setupConstraints() {
         NSLayoutConstraint.activate([
             dataTable.topAnchor.constraint(equalTo: view.layoutMarginsGuide.topAnchor),
             dataTable.leadingAnchor.constraint(equalTo: view.leadingAnchor),
             dataTable.bottomAnchor.constraint(equalTo: view.layoutMarginsGuide.bottomAnchor),
-            dataTable.trailingAnchor.constraint(equalTo: view.trailingAnchor),
+            dataTable.trailingAnchor.constraint(equalTo: view.trailingAnchor)
         ])
     }
-    
-    public func addDataSourceAfter(){
-        
-        self.dataSource = [
+
+    public func addDataSourceAfter() {
+        dataSource = [
             [
                 DataTableValueType.string("Pavan"),
                 DataTableValueType.string("Juice"),
@@ -67,11 +69,12 @@ class DataTableWithDataSourceViewController: UIViewController {
                 DataTableValueType.string("Java"),
                 DataTableValueType.string("'Creating an awesome RPG Game game'"),
                 DataTableValueType.float(185.42)
-            ],
+            ]
         ]
         dataTable.reload()
     }
 }
+
 extension DataTableWithDataSourceViewController {
     private func makeDataTable() -> SwiftDataTable {
         let dataTable = SwiftDataTable(dataSource: self)
@@ -80,21 +83,22 @@ extension DataTableWithDataSourceViewController {
         return dataTable
     }
 }
+
 extension DataTableWithDataSourceViewController: SwiftDataTableDataSource {
-    public func dataTable(_ dataTable: SwiftDataTable, headerTitleForColumnAt columnIndex: NSInteger) -> String {
-        return self.headerTitles[columnIndex]
+    public func dataTable(_: SwiftDataTable, headerTitleForColumnAt columnIndex: NSInteger) -> String {
+        return headerTitles[columnIndex]
     }
-    
-    public func numberOfColumns(in: SwiftDataTable) -> Int {
+
+    public func numberOfColumns(in _: SwiftDataTable) -> Int {
         return 4
     }
-    
-    func numberOfRows(in: SwiftDataTable) -> Int {
-        return self.dataSource.count
+
+    func numberOfRows(in _: SwiftDataTable) -> Int {
+        return dataSource.count
     }
-    
-    public func dataTable(_ dataTable: SwiftDataTable, dataForRowAt index: NSInteger) -> [DataTableValueType] {
-        return self.dataSource[index]
+
+    public func dataTable(_: SwiftDataTable, dataForRowAt index: NSInteger) -> [DataTableValueType] {
+        return dataSource[index]
     }
 }
 
