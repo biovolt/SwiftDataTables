@@ -11,11 +11,10 @@ import UIKit
 
 
 public class DataHeaderFooterViewModel: DataTableSortable {
-
     //MARK: - Properties
     let data: String
     var indexPath: IndexPath! // Questionable
-    var dataTable: SwiftDataTable!
+    var dataTable: SwiftDataTable
     
     public var sortType: DataTableSortType
     
@@ -53,8 +52,9 @@ public class DataHeaderFooterViewModel: DataTableSortable {
     //MARK: - Events
     
     //MARK: - Lifecycle
-    init(data: String, sortType: DataTableSortType){
+    init(data: String, sortType: DataTableSortType, dataTable: SwiftDataTable) {
         self.data = data
+        self.dataTable = dataTable
         self.sortType = sortType
     }
     
@@ -80,7 +80,7 @@ extension DataHeaderFooterViewModel: CollectionViewSupplementaryElementRepresent
                 return UICollectionReusableView()
         }
         
-        headerView.configure(viewModel: self)
+        headerView.configure(viewModel: self, dataTable: dataTable)
         switch kind {
         case SwiftDataTable.SupplementaryViewType.columnHeader.rawValue:
             headerView.didTapEvent = { [weak self] in

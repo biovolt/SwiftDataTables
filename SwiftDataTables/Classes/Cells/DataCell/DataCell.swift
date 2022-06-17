@@ -15,7 +15,6 @@ class DataCell: UICollectionViewCell {
         static let verticalMargin: CGFloat = 5
         static let horizontalMargin: CGFloat = 15
         static let widthConstant: CGFloat = 20
-        static lat textSize =
     }
     
     let dataLabel = UILabel()
@@ -42,14 +41,16 @@ class DataCell: UICollectionViewCell {
         ])
     }
     
-    func configure(_ viewModel: DataCellViewModel){
+    func configure(_ viewModel: DataCellViewModel, dataTable: SwiftDataTable) {
         self.dataLabel.text = viewModel.data.stringRepresentation
         
 //        self.contentView.backgroundColor = .white
-        if let font = UIFont(name:"rubikRegular", size: 12.0) {
-            self.dataLabel.font = font
+        if viewModel.data.hasSameCaseAs(.stringLink("")) {
+            self.dataLabel.textColor =  dataTable.colorForLinkTextInRows()
         } else {
-            self.dataLabel.font = UIFont.systemFont(ofSize: 12.0) {
+            self.dataLabel.textColor = dataTable.colorForTextInRows()
         }
+            self.dataLabel.font = dataTable.fontForRows()
+        
     }
 }

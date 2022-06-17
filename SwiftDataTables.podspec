@@ -21,11 +21,11 @@ Pod::Spec.new do |s|
   s.description      = "SwiftDataTables allows you to display grid-like data sets in a nicely formatted table for iOS. The main goal for the end-user are to be able to obtain useful information from the table as quickly as possible with the following features: ordering, searching, and paging; where as for the developer is to allow for easy implementation with extensible options. This package was inspired by Javascript's DataTables package."
 
 
-  s.homepage         = 'https://github.com/pavankataria/SwiftDataTables'
-  # s.screenshots     = 'https://github.com/pavankataria/SwiftDataTables/raw/master/Example/SwiftDataTables-Preview.gif'
+  s.homepage         = 'https://github.com/biovolt/SwiftDataTables'
+  # s.screenshots     = 'https://github.com/biovolt/SwiftDataTables/raw/master/Example/SwiftDataTables-Preview.gif'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'pavankataria' => 'info@pavankataria.com' }
-  s.source           = { :git => 'https://github.com/pavankataria/SwiftDataTables.git', :tag => s.version.to_s }
+  s.source           = { :git => 'https://github.com/biovolt/SwiftDataTables.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/pavan_kataria'
 
   s.ios.deployment_target = '9.0'

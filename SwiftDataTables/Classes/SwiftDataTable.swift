@@ -222,7 +222,7 @@ public class SwiftDataTable: UIView {
     }
     
     func set(data: DataTableContent, headerTitles: [String], options: DataTableConfiguration? = nil, shouldReplaceLayout: Bool = false){
-        self.dataStructure = DataStructureModel(data: data, headerTitles: headerTitles)
+        self.dataStructure = DataStructureModel(data: data, headerTitles: headerTitles, headerFont: options?.fontForHeaders, rowFont:  options?.fontForRows)
         self.createDataCellViewModels(with: self.dataStructure)
         self.applyOptions(options)
         if(shouldReplaceLayout){
@@ -299,7 +299,7 @@ public class SwiftDataTable: UIView {
             guard let rowData = self.dataSource?.dataTable(self, dataForRowAt: index) else {
                 return
             }
-            data.append(rowData)
+                data.append(rowData)
         }
         self.layout?.clearLayoutCache()
         self.collectionView.resetScrollPositionToTop()
@@ -322,7 +322,8 @@ public extension SwiftDataTable {
         self.headerViewModels = Array(0..<(dataStructure.headerTitles.count)).map {
             let headerViewModel = DataHeaderFooterViewModel(
                 data: dataStructure.headerTitles[$0],
-                sortType: dataStructure.columnHeaderSortType(for: $0)
+                sortType: dataStructure.columnHeaderSortType(for: $0),
+                dataTable: self
             )
             headerViewModel.configure(dataTable: self, columnIndex: $0)
             return headerViewModel
@@ -332,7 +333,8 @@ public extension SwiftDataTable {
             let sortTypeForFooter = dataStructure.columnFooterSortType(for: $0)
             let headerViewModel = DataHeaderFooterViewModel(
                 data: dataStructure.footerTitles[$0],
-                sortType: sortTypeForFooter
+                sortType: sortTypeForFooter,
+                dataTable: self
             )
             return headerViewModel
         }
@@ -341,7 +343,7 @@ public extension SwiftDataTable {
         //let viewModels: DataTableViewModelContent =
         self.rowViewModels = dataStructure.data.map{ currentRowData in
             return currentRowData.map {
-                return DataCellViewModel(data: $0)
+                return DataCellViewModel(data: $0, dataTable: self)
             }
         }
         self.paginationViewModel = PaginationHeaderViewModel()
@@ -635,8 +637,15 @@ extension SwiftDataTable {
         return false
     }
     
+    func shouldSectionFootersShow() -> Bool {
+        delegate?.shouldSectionFootersShow?(in: self) ?? options.shouldSectionFootersShow
+    }
+    
     func heightForSectionFooter() -> CGFloat {
+        if shouldSectionFootersShow() {
         return self.delegate?.heightForSectionFooter?(in: self) ?? self.options.heightForSectionFooter
+        }
+        return 0
     }
     
     func heightForSectionHeader() -> CGFloat {
@@ -648,6 +657,7 @@ extension SwiftDataTable {
         //May need to call calculateColumnWidths.. I want to deprecate it..
         guard let width = self.delegate?.dataTable?(self, widthForColumnAt: index) else {
             return self.columnWidths[index]
+            // return CGFloat(self.dataStructure.averageDataLengthForColumn(index: index))
         }
         //TODO: Implement it so that the preferred column widths are calculated first, and then the scaling happens after to fill the frame.
 //        if width != SwiftDataTableAutomaticColumnWidth {
@@ -674,6 +684,23 @@ extension SwiftDataTable {
     func heightOfInterRowSpacing() -> CGFloat {
         return self.delegate?.heightOfInterRowSpacing?(in: self) ?? self.options.heightOfInterRowSpacing
     }
+    
+    func fontForRows() -> UIFont {
+        return delegate?.fontForRows?(in: self) ?? self.options.fontForRows
+    }
+    
+    func fontForHeaders() -> UIFont {
+        delegate?.fontForHeaders?(in: self) ?? options.fontForHeaders
+    }
+    
+    func colorForTextInRows() -> UIColor {
+        delegate?.colorForTextInRows?(in: self) ?? options.colorForTextInRows
+    }
+    
+    func colorForLinkTextInRows() -> UIColor {
+        delegate?.colorForLinkTextInRows?(in: self) ?? options.colorForLinkTextInRows
+    }
+    
     func widthForRowHeader() -> CGFloat {
         return 0
     }

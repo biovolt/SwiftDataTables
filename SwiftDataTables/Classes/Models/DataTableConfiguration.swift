@@ -8,30 +8,31 @@
 
 import Foundation
 import UIKit
+import SwiftUI
 
 public enum DataStyles {
     
     public enum Colors {
         
-        public static var highlightedFirstColor: UIColor = {
+        public static var highlightedSecondColor: UIColor = {
             return setupColor(normalColor: UIColor(red: 0.941, green: 0.941, blue: 0.941, alpha: 1),
                               darkColor: UIColor(red: 0.16, green: 0.16, blue: 0.16, alpha: 1),
                               defaultColor: UIColor(red: 0.941, green: 0.941, blue: 0.941, alpha: 1))
         }()
         
-        public static var highlightedSecondColor: UIColor = {
+        public static var highlightedFirstColor: UIColor = {
             return setupColor(normalColor: UIColor(red: 0.9725, green: 0.9725, blue: 0.9725, alpha: 1),
                               darkColor: UIColor(red: 0.13, green: 0.13, blue: 0.13, alpha: 1),
                               defaultColor: UIColor(red: 0.9725, green: 0.9725, blue: 0.9725, alpha: 1))
         }()
         
-        public static var unhighlightedFirstColor: UIColor = {
+        public static var unhighlightedSecondColor: UIColor = {
             return setupColor(normalColor: UIColor(red: 0.9725, green: 0.9725, blue: 0.9725, alpha: 1),
                               darkColor: UIColor(red: 0.06, green: 0.06, blue: 0.06, alpha: 1),
                               defaultColor: UIColor(red: 0.9725, green: 0.9725, blue: 0.9725, alpha: 1))
         }()
         
-        public static var unhighlightedSecondColor: UIColor = {
+        public static var unhighlightedFirstColor: UIColor = {
             return setupColor(normalColor: .white,
                               darkColor: UIColor(red: 0.03, green: 0.03, blue: 0.03, alpha: 1),
                               defaultColor: .white)
@@ -75,6 +76,7 @@ public struct DataTableConfiguration: Equatable {
     public var shouldShowSearchSection: Bool = true
     public var shouldSearchHeaderFloat: Bool = false
     public var shouldSectionFootersFloat: Bool = true
+    public var shouldSectionFootersShow: Bool = true
     public var shouldSectionHeadersFloat: Bool = true
     public var shouldContentWidthScaleToFillFrame: Bool = true
     
@@ -95,6 +97,10 @@ public struct DataTableConfiguration: Equatable {
     ]
     
     public var fixedColumns: DataTableFixedColumnType? = nil
+    internal var fontForRows: UIFont = UIFont.systemFont(ofSize: 12)
+    internal var colorForLinkTextInRows = UIColor.blue
+    internal var colorForTextInRows = UIColor.black
+    internal var fontForHeaders: UIFont = UIFont.boldSystemFont(ofSize: 16)
     
     public init(){
         

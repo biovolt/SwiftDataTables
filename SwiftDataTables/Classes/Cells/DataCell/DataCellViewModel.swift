@@ -10,7 +10,9 @@ import Foundation
 import UIKit
 
 open class DataCellViewModel: VirtualPositionTrackable, CollectionViewCellRepresentable {
-    
+    //MARK: - Private Properties
+    private var dataTable: SwiftDataTable
+
     //MARK: - Public Properties
     var xPositionRunningTotal: CGFloat?  = nil
     var yPositionRunningTotal: CGFloat?  = nil
@@ -22,8 +24,9 @@ open class DataCellViewModel: VirtualPositionTrackable, CollectionViewCellRepres
         return self.data.stringRepresentation
     }
     //MARK: - Lifecycle
-    init(data: DataTableValueType){
+    init(data: DataTableValueType, dataTable: SwiftDataTable) {
         self.data = data
+        self.dataTable = dataTable
     }
     
     static func registerCell(collectionView: UICollectionView) {
@@ -38,7 +41,7 @@ open class DataCellViewModel: VirtualPositionTrackable, CollectionViewCellRepres
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: identifier, for: indexPath) as? DataCell else {
             fatalError("error in collection view cell")
         }
-        cell.configure(self)
+        cell.configure(self, dataTable: dataTable)
         return cell
     }
 }

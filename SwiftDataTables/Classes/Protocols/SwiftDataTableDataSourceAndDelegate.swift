@@ -11,7 +11,7 @@ import UIKit
 //public let SwiftDataTableAutomaticColumnWidth: CGFloat = CGFloat.greatestFiniteMagnitude
 
 /// This is an optional data source, you can also set static data in the initialiser of the `SwiftDataTable` class so you can avoid conforming to the data source. But for those with more dynamic content, use this protocol.
-public protocol SwiftDataTableDataSource: class {
+public protocol SwiftDataTableDataSource: AnyObject {
     
     /// The number of columns to display
     ///
@@ -44,7 +44,7 @@ public protocol SwiftDataTableDataSource: class {
 }
 
 /// An optional delegate for further customisation. Default values will be used retrieved from the SwiftDataTableConfiguration file. This will can be overridden and passed into the SwiftDataTable constructor incase you wish not to use the delegate.
-@objc public protocol SwiftDataTableDelegate: class {
+@objc public protocol SwiftDataTableDelegate: AnyObject {
     
     /// Fired when a cell is selected.
     ///
@@ -95,6 +95,13 @@ public protocol SwiftDataTableDataSource: class {
     /// - Parameter dataTable: SwiftDataTable
     /// - Returns: whether you wish to float section footer views.
     @objc optional func shouldSectionFootersFloat(in dataTable: SwiftDataTable) -> Bool
+    
+    /// Section Footer Show. If set to true footers can show. Otherwise if set to false the footer will be hidden.
+    /// Defaults to true.
+    ///
+    /// - Parameter dataTable: SwiftDataTable
+    /// - Returns: whether you wish to float section footer views.
+    @objc optional func shouldSectionFootersShow(in dataTable: SwiftDataTable) -> Bool
     
     
     /// Search View floating. If set to true the search view can float and remain in view during scroll. Otherwise if set to false the search view will be fixed at the top and scroll off view along with the content.
@@ -181,6 +188,26 @@ public protocol SwiftDataTableDataSource: class {
     /// - Parameter dataTable: SwiftDataTable
     /// - Returns: `true` to flip horizontal scroll in RTL layouts.
     @objc optional func shouldSupportRightToLeftInterfaceDirection(in dataTable: SwiftDataTable) -> Bool
+    
+    /// - Parameter dataTable: SwiftDataTable
+    ///   This allow using custom fonts for text in table rows
+    /// - Returns UIFont
+    @objc optional func fontForRows(in dataTable: SwiftDataTable) -> UIFont
+    
+    /// - Parameter dataTable: SwiftDataTable
+    ///   This allow using custom fonts for text in header rows
+    /// - Returns UIFont
+    @objc optional func fontForHeaders(in dataTable: SwiftDataTable) -> UIFont
+    
+    /// - Parameter dataTable: SwiftDataTable
+    ///   This allow using custom text Color for text in rows
+    /// - Returns UIColor
+    @objc optional func colorForTextInRows(in dataTable: SwiftDataTable) -> UIColor
+    
+    /// - Parameter dataTable: SwiftDataTable
+    ///   This allow using custom text Color for link text in header rows
+    /// - Returns UIColor
+    @objc optional func colorForLinkTextInRows(in dataTable: SwiftDataTable) -> UIColor
 }
 
 extension SwiftDataTableDelegate {

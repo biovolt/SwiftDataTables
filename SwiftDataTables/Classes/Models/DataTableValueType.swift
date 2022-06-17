@@ -15,6 +15,7 @@ public enum DataTableValueType {
     
     //MARK: - Properties
     case string(String)
+    case stringLink(String)
     case int(Int)
     case float(Float)
     case double(Double)
@@ -24,6 +25,8 @@ public enum DataTableValueType {
             switch self {
             case .string(let value):
                 return String(value)
+            case .stringLink(let value):
+                return String(value)
             case .int(let value):
                 return String(value)
             case .float(let value):
@@ -32,6 +35,17 @@ public enum DataTableValueType {
                 return String(value)
             }
         }
+    }
+    
+    func hasSameCaseAs(_ type: Self) -> Bool {
+        switch self {
+        case .string: if case .string = type { return true }
+        case .stringLink: if case .stringLink = type { return true }
+        case .int: if case .int = type { return true }
+        case .float: if case .float = type { return true }
+        case .double: if case .double = type { return true }
+        }
+        return false
     }
     
     public init(_ value: Any){
