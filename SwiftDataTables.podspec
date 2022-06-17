@@ -25,7 +25,7 @@ Pod::Spec.new do |s|
   # s.screenshots     = 'https://github.com/pavankataria/SwiftDataTables/raw/master/Example/SwiftDataTables-Preview.gif'
   s.license          = { :type => 'MIT', :file => 'LICENSE' }
   s.author           = { 'pavankataria' => 'info@pavankataria.com' }
-  s.source           = { :git => 'https://github.com/pavankataria/SwiftDataTables.git', :tag => s.version.to_s }
+  s.source           = { :git => 'https://github.com/biovolt/SwiftDataTables.git', :tag => s.version.to_s }
   # s.social_media_url = 'https://twitter.com/pavan_kataria'
 
   s.ios.deployment_target = '9.0'
